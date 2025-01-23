@@ -4,30 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> MQB </title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
 </head>
-<body style="height: 100%;">
-    <iframe id="pdfIframe" src="https://qrcodemaker.github.io/MQB/MQB.pdf" width="100%" style="min-height: 100%;" onload="adjustIframeHeight()"></iframe>
+<body style="height: 100%;text-align: center;">
+    <canvas id="pdf-canvas" style="width: auto; height: 100%; "></canvas>
 
     <script>
-        // Function to adjust iframe height dynamically based on the content
-        function adjustIframeHeight() {
-            var iframe = document.getElementById('pdfIframe');
-            var iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-            
-            // Adjust height based on the content inside the iframe
-            if (iframeDocument) {
-                var body = iframeDocument.body;
-                iframe.style.height = body.scrollHeight + "px";
-            }
-        }
+        var url = 'https://qrcodemaker.github.io/MQB//MQB.pdf';
 
-        // Optional: Event listener to check if the PDF loads properly
-        window.onload = function() {
-            var iframe = document.getElementById('pdfIframe');
-            iframe.onerror = function() {
-                alert('فشل تحميل الـ PDF. الرجاء المحاولة لاحقاً.');
-            };
-        };
+        // Loading the PDF.js library and rendering the PDF
+        pdfjsLib.getDocument(url).promise.then(function(pdf) {
+            // Rendering the first page of the PDF
+            pdf.getPage(1).then(function(page) {
+                var canvas = document.getElementById('pdf-canvas');
+                var context = canvas.getContext('2d');
+                var viewport = page.getViewport({ scale: 1 });
+
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+
+                page.render({
+                    canvasContext: context,
+                    viewport: viewport
+                });
+            });
+        });
     </script>
 </body>
 </html>
