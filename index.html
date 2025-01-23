@@ -1,11 +1,33 @@
 <!DOCTYPE html>
-<html lang="ar" style="height: 100%;" >
+<html lang="ar" style="height: 100%;">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> MQB </title>
 </head>
-<body style="height: 100%;" >
-    <iframe src="https://qrcodemaker.github.io/MQB/MQB.pdf" width="100%" style="min-height: 100%;" ></iframe>
+<body style="height: 100%;">
+    <iframe id="pdfIframe" src="https://qrcodemaker.github.io/MQB/MQB.pdf" width="100%" style="min-height: 100%;" onload="adjustIframeHeight()"></iframe>
+
+    <script>
+        // Function to adjust iframe height dynamically based on the content
+        function adjustIframeHeight() {
+            var iframe = document.getElementById('pdfIframe');
+            var iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+            
+            // Adjust height based on the content inside the iframe
+            if (iframeDocument) {
+                var body = iframeDocument.body;
+                iframe.style.height = body.scrollHeight + "px";
+            }
+        }
+
+        // Optional: Event listener to check if the PDF loads properly
+        window.onload = function() {
+            var iframe = document.getElementById('pdfIframe');
+            iframe.onerror = function() {
+                alert('فشل تحميل الـ PDF. الرجاء المحاولة لاحقاً.');
+            };
+        };
+    </script>
 </body>
 </html>
