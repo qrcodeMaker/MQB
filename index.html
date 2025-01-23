@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="ar" style="height: 100%;">
+<html lang="ar" >
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> MQB </title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
 </head>
-<body style="height: 100%;text-align: center;">
-    <canvas id="pdf-canvas" style="width: auto; height: 100%; "></canvas>
+<body style="text-align: center;">
+    <canvas id="pdf-canvas" style="width: auto; height: auto;  max-width: 100%;"></canvas>
 
     <script>
-        var url = 'https://qrcodemaker.github.io/MQB//MQB.pdf';
+        var url = 'https://qrcodemaker.github.io/MQB/MQB.pdf';
 
         // Loading the PDF.js library and rendering the PDF
         pdfjsLib.getDocument(url).promise.then(function(pdf) {
